@@ -1,0 +1,70 @@
+	git config --global user.name "Youness CHAFIA"
+	git config --global user.email "you@chafia.fr" le QUI
+	git init
+
+	git status
+	git add index.html : pour commencer à versionner le fichier
+	git commit -m "fist version" : le POURQUOI et le QUAND
+	git commit --amend -m "fiRst version"
+	git diff
+	git log : historique des commit
+
+Une branche (feature) correspond à une fonctionnalité à mettre en place.
+	git branch new-branch
+	git branch
+	git checkout new-branch 
+	git diff master..new-branch
+
+Quand la new-branch évolue, idem pour la master, on peut merger à ce moment là. (se fait en 2 temps)
+1. se positionner sur la branch qui va recevoir les modif (master) :
+	git checkout master
+2. On rapatrie le modification de new-branch dans la master :
+	git merge new-branch
+	
+Dans le cas où, les 2 branches ont modifié le même fichier, la même ligne, le merge créera un conflit :
+résoudre le conflit manuellement, puis commiter (git add + git commit)
+
+Une fois terminé,on doit supprimer les nouvelle branche.
+	git br -d new-branch
+Si une feature contient des commit non mergé, à la suppression de la branche, git déclanche une erreur.
+Si il faut abolument supprimer la branche, il faut utiliser -D
+	git br -D test
+	
+La bonne pratique est de travailler sur une feature et pas sur la master
+
+Créer une alias git lg pour afficher le graph d'évolution du dépot.
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
+
+gitk : permet d'afficher le graph d'évolution
+
+Remote :
+git remote add origin <git distant.git>
+git remote -v
+git push origin master / git push origin new-branch
+
+Fork : Certains dev veulent enrichir une librairie A, il vont la forker, ajouter les nouvelles fonctionnalités et les proposer au propriétaire de la lib A.
+
+NB :
+	Une branche par fonctionnalité.
+	Une fonctionnalité est une US (User Story) => 1 ou 2 j maximum
+	Merge rapidement, car si une branche est créé depuis un mois, c'est qu'il y a un problème. (et le merge risque d'être difficile)
+	
+Code Review : Une fois la fonctionnalité terminée, je demande à un collobarateur AA (de relire mon code) de faire un Pull request sur ma nouvelle branche, ajjouter des cmt...
+Et c'est AA qui fait le merge.
+
+Avec git fetch, on peut rappatrier les autres branches des autres collaborateurs.
+	=> Néanmoins, ce n'est pas une bonne pratique, car un dev doit travailler seul sur une fonctionnalité et donc sur une branche.
+
+
+On peut proposer à une équipe prop d'une librairie des modification et des fix bug par exemple.
+1. Forker le projet de la librairie (le mettre dans mon github)
+2. git clone dans mon espace de dev.
+3. Créer une branche pour fixer le bug.
+4. Corriger le bug, commit , pusher (dans le fork de mon github)
+5. Créer une pull request pour propser cela à l'équipe de la librairie.
+
+Le Fork est utiliser que quand on est pas collobarateur sur un projet, et on voudrai améliorer la librairie sans être cllaborateur sur ce projet.
+
+
+
+
